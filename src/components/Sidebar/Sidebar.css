@@ -1,0 +1,45 @@
+.sidebar {
+  @apply min-h-screen inline-flex flex-col justify-between bg-slate-100 px-6 py-4;
+}
+
+.sidebar img {
+  @apply w-5;
+}
+
+.sidebar .menu {
+  @apply block ml-3 cursor-pointer;
+}
+
+.sidebar .new-chat {
+  @apply mt-12 inline-flex items-center gap-3 px-4 py-3 cursor-pointer;
+  border-radius: 50px;
+  font-size: 14px;
+  background-color: #e6eaf1;
+  color: grey;
+}
+
+.sidebar .recent {
+  @apply flex flex-col;
+}
+
+.recent .recent-title {
+  @apply mt-8 mb-5;
+}
+
+.sidebar .recent-entry {
+  @apply flex items-start gap-3 p-3 pr-10 cursor-pointer;
+  border-radius: 50px;
+  color: #282828;
+}
+
+.sidebar .recent-entry:hover {
+  background-color: #e2e6eb;
+}
+
+.sidebar .bottom {
+  @apply flex flex-col;
+}
+
+.sidebar .bottom-item {
+  @apply pr-3 cursor-pointer;
+}

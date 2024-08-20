@@ -1,7 +1,13 @@
 import React from "react";
+import Sidebar from "./components/Sidebar/Sidebar";
 
 const App = () => {
-  return <div className="text-3xl font-bold">Hello</div>;
+  return (
+    <>
+      <Sidebar />
+      <div></div>
+    </>
+  );
 };
 
 export default App;

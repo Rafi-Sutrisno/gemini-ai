@@ -1,0 +1,80 @@
+.main {
+  @apply min-h-full relative;
+  padding-bottom: 15vh;
+  flex: 1;
+}
+
+.main .nav {
+  @apply flex items-center justify-between p-5;
+  color: #585858;
+  font-size: 22px;
+}
+
+.main .nav img {
+  @apply w-10;
+  border-radius: 50%;
+}
+
+.main-container {
+  @apply m-auto;
+  max-width: 900px;
+}
+
+.greet {
+  @apply font-medium p-5 text-5xl;
+  margin: 50px 0px;
+  color: #c4c7c5;
+}
+
+.main .greet span {
+  background: -webkit-linear-gradient(16deg, #4b90ff, #ff5546);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cards {
+  @apply grid gap-4 p-5;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+
+.card {
+  @apply h-52 p-4 rounded-xl relative cursor-pointer bg-gray-200/55;
+  @apply hover:bg-gray-200;
+}
+
+.card img {
+  @apply w-9 p-1 absolute bg-white rounded-3xl bottom-3 right-3;
+}
+
+.card p {
+  color: #585858;
+  @apply text-base;
+}
+
+.main-bottom {
+  @apply absolute bottom-0 w-full py-5 m-auto;
+  max-width: 900px;
+}
+
+.search-box {
+  @apply flex items-center justify-between gap-5 px-3 py-5;
+  border-radius: 50px;
+  background-color: #f0f4f9;
+}
+
+.search-box img {
+  @apply w-6 cursor-pointer;
+}
+
+.search-box input {
+  @apply bg-transparent border-none outline-none p-2 text-lg;
+  flex: 1;
+}
+
+.search-box div {
+  @apply flex items-center gap-4;
+}
+
+.main .bottom-info {
+  @apply text-sm mx-4 my-auto text-center font-light;
+}

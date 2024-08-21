@@ -20,6 +20,7 @@
 
 .sidebar .recent {
   @apply flex flex-col;
+  animation: fadeIn 1.5s;
 }
 
 .recent .recent-title {
@@ -36,10 +37,16 @@
   background-color: #e2e6eb;
 }
 
-.sidebar .bottom {
+.sidebar .bot {
   @apply flex flex-col;
 }
 
 .sidebar .bottom-item {
-  @apply pr-3 cursor-pointer;
+  @apply pr-3 cursor-not-allowed;
+}
+
+@media (max-width: 600px) {
+  .sidebar {
+    display: none;
+  }
 }

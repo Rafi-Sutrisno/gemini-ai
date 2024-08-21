@@ -11,7 +11,7 @@
 }
 
 .sidebar .new-chat {
-  @apply mt-12 inline-flex items-center gap-3 px-4 py-3 cursor-pointer;
+  @apply mt-12 inline-flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-200;
   border-radius: 50px;
   font-size: 14px;
   background-color: #e6eaf1;

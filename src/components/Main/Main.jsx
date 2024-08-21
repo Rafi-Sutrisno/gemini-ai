@@ -20,11 +20,17 @@ const Main = () => {
     backgroundColor: isFocused ? "#ededed" : "",
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && input) {
+      onSent();
+    }
+  };
+
   return (
     <div className="main">
       <div className="nav">
         <p>Gemini</p>
-        <img src={assets.user_icon} alt="" />
+        <img src={assets.user_icon2} alt="" />
       </div>
 
       <div className="main-container">
@@ -59,7 +65,7 @@ const Main = () => {
           <>
             <div className="result">
               <div className="result_title">
-                <img src={assets.user_icon} alt="" />
+                <img src={assets.user_icon2} alt="" />
                 <p>{recentPrompt}</p>
               </div>
               <div className="result_data">
@@ -86,6 +92,7 @@ const Main = () => {
               }}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
+              onKeyUp={handleKeyPress}
               type="text"
               placeholder="enter a prompt here"
               value={input}

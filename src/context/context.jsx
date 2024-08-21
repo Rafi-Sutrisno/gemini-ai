@@ -1,11 +1,89 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
+import run from "../utils/gemini-config";
 
-export const context = createContext();
+export const Context = createContext();
 
-const contextProvider = (props) => {
-  const contextValue = {};
+const ContextProvider = (props) => {
+  const [input, setInput] = useState("");
+  const [recentPrompt, setRecentPromt] = useState("");
+  const [previousPrompt, setPreviousPromt] = useState([]);
+  const [showResult, setShowResult] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [resultData, setResultData] = useState("");
 
-  return <context.Provider>{props.children}</context.Provider>;
+  const delayParam = (index, nextword) => {
+    setTimeout(function () {
+      setResultData((prev) => prev + nextword);
+    }, 75 * index);
+  };
+
+  const newChat = () => {
+    setLoading(false);
+    setShowResult(false);
+  };
+
+  const onSent = async (prompt) => {
+    setResultData("");
+    setLoading(true);
+    setShowResult(true);
+
+    let response;
+    if (prompt !== undefined) {
+      try {
+        response = await run(prompt);
+        setRecentPromt(prompt);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setPreviousPromt((prev) => [...prev, input]);
+      setRecentPromt(input);
+      response = await run(input);
+    }
+
+    try {
+      let rspArray = response.split("**");
+      let newResponse = "";
+      for (let i = 0; i < rspArray.length; i++) {
+        if (i === 0 || i % 2 !== 1) {
+          newResponse += rspArray[i];
+        } else {
+          newResponse += "<b style='font-weight: 700;'>" + rspArray[i] + "</b>";
+        }
+      }
+
+      let newResponse2 = newResponse.split("*").join("</br>");
+
+      let newResponseArray = newResponse2.split(" ");
+      for (let i = 0; i < newResponseArray.length; i++) {
+        const nextword = newResponseArray[i];
+        delayParam(i, nextword + " ");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+      setInput("");
+    }
+  };
+
+  const contextValue = {
+    previousPrompt,
+    setPreviousPromt,
+    recentPrompt,
+    setRecentPromt,
+    input,
+    setInput,
+    showResult,
+    loading,
+    resultData,
+    onSent,
+    newChat,
+  };
+
+  return (
+    <Context.Provider value={contextValue}>{props.children}</Context.Provider>
+  );
 };
 
-export default contextProvider;
+export default ContextProvider;

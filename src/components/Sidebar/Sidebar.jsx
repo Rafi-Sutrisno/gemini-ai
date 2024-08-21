@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import "./Sidebar.css";
 import { assets } from "../../assets/assets";
-import { Context } from "../../ContextProvider/ContextProvider";
+import { Context } from "../../ContextProv/ContextProv";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);

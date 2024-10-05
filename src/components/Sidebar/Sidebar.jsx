@@ -15,27 +15,42 @@ const Sidebar = () => {
   return (
     <div className={`sidebar ${open ? "sidebar-open" : "sidebar-closed"}`}>
       <div className="top">
-        <img
+        {/* Ganti elemen <img> dengan <button> untuk interaktivitas */}
+        <button
           onClick={() => setOpen((prev) => !prev)}
           className="menu"
-          src={assets.menu_icon}
-          alt=""
-        />
-        <div className="new-chat" onClick={() => newChat()}>
-          <img src={assets.plus_icon} alt="" />
+          aria-label="Toggle Sidebar"
+        >
+          <img src={assets.menu_icon} alt="Menu Icon" />
+        </button>
+
+        <button
+          className="new-chat"
+          onClick={() => newChat()}
+          aria-label="Start new chat"
+        >
+          <img src={assets.plus_icon} alt="New Chat Icon" />
           {open ? <p>new chat</p> : null}
-        </div>
+        </button>
+
         {open ? (
           <div className="recent">
             <p className="recent-title">Recent</p>
-            {previousPrompt.map((item, index) => {
-              return (
-                <div onClick={() => loadPrompt(item)} className="recent-entry">
-                  <img src={assets.message_icon} alt="" />
-                  <p>{item.slice(0, 15)} ...</p>
-                </div>
-              );
-            })}
+            {previousPrompt.map((item, index) => (
+              <button
+                key={index}
+                onClick={() => loadPrompt(item)}
+                className="recent-entry"
+                style={{
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <img src={assets.message_icon} alt="" />
+                <p>{item.slice(0, 15)} ...</p>
+              </button>
+            ))}
           </div>
         ) : null}
       </div>

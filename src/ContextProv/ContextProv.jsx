@@ -1,12 +1,13 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useMemo } from "react";
+import PropTypes from "prop-types"; // Import PropTypes
 import run from "../utils/gemini-config";
 
 export const Context = createContext();
 
-const ContextProvider = (props) => {
+const ContextProvider = ({ children }) => {
   const [input, setInput] = useState("");
-  const [recentPrompt, setRecentPromt] = useState("");
-  const [previousPrompt, setPreviousPromt] = useState([]);
+  const [recentPrompt, setRecentPrompt] = useState("");
+  const [previousPrompt, setPreviousPrompt] = useState([]);
   const [showResult, setShowResult] = useState(false);
   const [loading, setLoading] = useState(false);
   const [resultData, setResultData] = useState("");
@@ -31,13 +32,13 @@ const ContextProvider = (props) => {
     if (prompt !== undefined) {
       try {
         response = await run(prompt);
-        setRecentPromt(prompt);
+        setRecentPrompt(prompt);
       } catch (error) {
         console.log(error);
       }
     } else {
-      setPreviousPromt((prev) => [...prev, input]);
-      setRecentPromt(input);
+      setPreviousPrompt((prev) => [...prev, input]);
+      setRecentPrompt(input);
       response = await run(input);
     }
 
@@ -67,23 +68,29 @@ const ContextProvider = (props) => {
     }
   };
 
-  const contextValue = {
-    previousPrompt,
-    setPreviousPromt,
-    recentPrompt,
-    setRecentPromt,
-    input,
-    setInput,
-    showResult,
-    loading,
-    resultData,
-    onSent,
-    newChat,
-  };
-
-  return (
-    <Context.Provider value={contextValue}>{props.children}</Context.Provider>
+  const contextValue = useMemo(
+    () => ({
+      previousPrompt,
+      setPreviousPrompt,
+      recentPrompt,
+      setRecentPrompt,
+      input,
+      setInput,
+      showResult,
+      loading,
+      resultData,
+      onSent,
+      newChat,
+    }),
+    [previousPrompt, recentPrompt, input, showResult, loading, resultData]
   );
+
+  return <Context.Provider value={contextValue}>{children}</Context.Provider>;
+};
+
+// Add PropTypes validation
+ContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default ContextProvider;

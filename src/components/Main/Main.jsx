@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import "./Main.css";
 import { assets } from "../../assets/assets";
 import { Context } from "../../ContextProv/ContextProv";
@@ -62,7 +62,6 @@ const Main = () => {
             </div>
           </>
         ) : (
-          <>
             <div className="result">
               <div className="result_title">
                 <img src={assets.user_icon2} alt="" />
@@ -81,7 +80,6 @@ const Main = () => {
                 )}
               </div>
             </div>
-          </>
         )}
 
         <div className="main-bottom">
@@ -109,12 +107,15 @@ const Main = () => {
                 className="cursor-not-allowed"
               />
               {input ? (
-                <img
+                <button
                   onClick={() => onSent()}
-                  src={assets.send_icon}
-                  alt=""
-                  className="cursor-pointer"
-                />
+                >
+                  <img
+                    src={assets.send_icon}
+                    alt=""
+                    className="cursor-pointer"
+                  />
+                </button>
               ) : null}
             </div>
           </div>
